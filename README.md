@@ -18,6 +18,3 @@ primarily written in Kotlin. The architecture of PyWrathPrism was heavily influe
   reference, especially when working on the HID interface and debugging. 
 - [Adam Honse](https://gitlab.com/CalcProgrammer1): [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB), particularly
 the [AMD Wraith Prism reference](https://gitlab.com/CalcProgrammer1/OpenRGB/-/wikis/AMD-Wraith-Prism)
-- 
-
-
