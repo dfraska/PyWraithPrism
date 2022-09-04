@@ -5,9 +5,9 @@ Other projects exist for controlling the Wraith Prism cooler (see the [Acknowled
 for some examples). Other options I found were either written for other platforms, or are not feature-complete enough for my uses.
 
 # Usage
-See the example under tests/test.py for a basic usage example. The primary methods for controlling the LEDs are 
-through the ring, fan, and logo components. When you're done modifying settings, call
-```prism.submit_all_components()``` to apply the current settings, and ```prism.save()``` to save the values to the 
+See the example under [tests/test.py](https://github.com/dfraska/PyWraithPrism/blob/main/tests/test.py) for a basic usage example.
+The primary methods for controlling the LEDs are through the ring, fan, and logo components. When you're done modifying settings,
+call ```prism.submit_all_components()``` to apply the current settings, and ```prism.save()``` to save the values to the 
 hardware.
 
 # Acknowledgements
@@ -18,6 +18,3 @@ primarily written in Kotlin. The architecture of PyWrathPrism was heavily influe
   reference, especially when working on the HID interface and debugging. 
 - [Adam Honse](https://gitlab.com/CalcProgrammer1): [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB), particularly
 the [AMD Wraith Prism reference](https://gitlab.com/CalcProgrammer1/OpenRGB/-/wikis/AMD-Wraith-Prism)
-- 
-
-
