@@ -12,8 +12,8 @@ class UsbInterface(AbstractContextManager):
         self._device: hid_device = device
         self._request_size = request_size
 
-    def __exit__(self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None,
-                 __traceback: TracebackType | None) -> bool | None:
+    def __exit__(self, __exc_type: Type[BaseException] or None, __exc_value: BaseException or None,
+                 __traceback: TracebackType or None) -> bool or None:
         self.close()
         return None
 

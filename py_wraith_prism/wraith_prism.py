@@ -135,8 +135,8 @@ class WraithPrism(AbstractContextManager):
         self.assign_channels()
         self.apply()
 
-    def __exit__(self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None,
-                 __traceback: TracebackType | None) -> bool | None:
+    def __exit__(self, __exc_type: Type[BaseException] or None, __exc_value: BaseException or None,
+                 __traceback: TracebackType or None) -> bool or None:
         return self._usb.__exit__(__exc_type, __exc_value, __traceback)
 
     def power_on(self):
