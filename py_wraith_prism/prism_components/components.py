@@ -1,7 +1,8 @@
-from py_wraith_prism.usb.hid_device_manager import UsbInterface
+from typing import Sequence, List
+
 from py_wraith_prism.prism_components.prism_components import PrismLogoComponent, \
     PrismComponent, PrismFanComponent, PrismRingComponent
-from typing import Sequence, List
+from py_wraith_prism.usb.hid_device_manager import UsbInterface
 
 
 class Components(Sequence[PrismComponent]):

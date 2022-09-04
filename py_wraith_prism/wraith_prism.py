@@ -1,16 +1,16 @@
 from contextlib import AbstractContextManager
-from types import TracebackType
-
-from py_wraith_prism.usb.hid_device_manager import UsbInterface
-from py_wraith_prism.prism_components.prism_components import PrismLogoComponent, PrismFanComponent, \
-    PrismRingComponent, PrismComponent
-from typing import Tuple, Type
 from math import floor
-from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, \
-    PrismRingMode
+from types import TracebackType
+from typing import Tuple, Type
+
+from py_wraith_prism.prism_components.components import Components
 from py_wraith_prism.prism_components.enums import Speed, Brightness
 from py_wraith_prism.prism_components.mirage_state import MirageState, MirageStateOn
-from py_wraith_prism.prism_components.components import Components
+from py_wraith_prism.prism_components.prism_components import PrismLogoComponent, PrismFanComponent, \
+    PrismRingComponent, PrismComponent
+from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, \
+    PrismRingMode
+from py_wraith_prism.usb.hid_device_manager import UsbInterface
 
 # Port of:
 # https://github.com/serebit/wraith-master/blob/master/core/src/linuxX64Main/kotlin/prism/WraithPrism.kt

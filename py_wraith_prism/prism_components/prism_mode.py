@@ -1,6 +1,7 @@
-from typing import NamedTuple, Mapping
-from py_wraith_prism.prism_components.enums import ColorSupport, Brightness, Speed
 from enum import Enum
+from typing import NamedTuple, Mapping
+
+from py_wraith_prism.prism_components.enums import ColorSupport, Brightness, Speed
 
 
 class _PrismMode:
