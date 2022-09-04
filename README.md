@@ -5,7 +5,7 @@ Other projects exist for controlling the Wraith Prism cooler (see the [Acknowled
 for some examples). Other options I found were either written for other platforms, or are not feature-complete enough for my uses.
 
 # Usage
-See the example under [tests/test.py](https://github.com/dfraska/PyWraithPrism/blob/main/tests/test.py) for a basic usage example.
+See the examples under [tests](https://github.com/dfraska/PyWraithPrism/blob/main/tests/) for a basic usage example.
 The primary methods for controlling the LEDs are through the ring, fan, and logo components. When you're done modifying settings,
 call ```prism.submit_all_components()``` to apply the current settings, and ```prism.save()``` to save the values to the 
 hardware.
