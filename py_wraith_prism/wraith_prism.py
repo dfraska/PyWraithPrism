@@ -32,20 +32,20 @@ class WraithPrism(AbstractContextManager):
 
     def submit_component(self, component: PrismComponent):
         component.submit_values()
-        self.assign_channels()
+        self._assign_channels()
         self.apply()
 
     def submit_components(self, *argv):
         for component in argv:
             component.submit_values()
         if any(argv):
-            self.assign_channels()
+            self._assign_channels()
             self.apply()
 
     def submit_all_components(self):
         for component in self._components:
             component.submit_values()
-        self.assign_channels()
+        self._assign_channels()
         self.apply()
 
     def save(self):
@@ -83,7 +83,7 @@ class WraithPrism(AbstractContextManager):
         else:
             self._usb.send_bytes([0x51, 0x96])
 
-    def assign_channels(self):
+    def _assign_channels(self):
         pkt = [0x51, 0xA0, 1, 0, 0, 3, 0, 0, self.logo.channel, self.fan.channel] + [self.ring.channel] * 15
         self._usb.send_bytes(pkt)
 
@@ -108,7 +108,7 @@ class WraithPrism(AbstractContextManager):
         for component in self._components:
             component.submit_values()
 
-        self.assign_channels()
+        self._assign_channels()
         self.apply()
 
     def __exit__(self, __exc_type: Type[BaseException] or None, __exc_value: BaseException or None,

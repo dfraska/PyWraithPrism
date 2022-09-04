@@ -229,10 +229,10 @@ class PrismRingComponent(PrismComponent):
         return self._cached_morse_bytes
 
     def submit_values(self):
-        self._submit_morse_values()
+        self.submit_morse_values()
         super().submit_values()
 
-    def _submit_morse_values(self):
+    def submit_morse_values(self):
         morse_bytes = self._morse_bytes
         first_chunk = itertools.chain([0x51, 0x73, 0, 0], morse_bytes[0:60])
         third_chunk = itertools.chain([0x51, 0x73, 2, 0], morse_bytes[0:60])
