@@ -1,5 +1,3 @@
-import os
-
 from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
@@ -20,8 +18,7 @@ EXTRA_PACKAGES = {}
 setup(
     name='py_wraith_prism',
     version='0.9',
-    packages=find_packages(os.path.join(os.path.dirname(__file__), 'src')),
-    package_dir={"": "src"},
+    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=RUNTIME_PACKAGES,
     setup_requires=RUNTIME_PACKAGES + SETUP_PACKAGES,
     extras_require=EXTRA_PACKAGES,
