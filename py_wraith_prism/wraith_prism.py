@@ -1,11 +1,10 @@
 from contextlib import AbstractContextManager
-from math import floor
 from types import TracebackType
-from typing import Tuple, Type
+from typing import Type
 
 from py_wraith_prism.prism_components.components import Components
 from py_wraith_prism.prism_components.enums import Speed, Brightness
-from py_wraith_prism.prism_components.mirage_state import MirageState, MirageStateOn
+from py_wraith_prism.prism_components.mirage_state import MirageState
 from py_wraith_prism.prism_components.prism_components import PrismLogoComponent, PrismFanComponent, \
     PrismRingComponent, PrismComponent
 from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, \
@@ -91,28 +90,6 @@ class WraithPrism(AbstractContextManager):
     def apply(self):
         self._usb.send_bytes([0x51, 0x28, 0, 0, 0xE0])
 
-    @staticmethod
-    def _mirage_freq_bytes(value: int) -> Tuple[int, int, int]:
-        initial = 187498 / value
-
-        multiplicand = floor(initial / 256)
-        rem = initial / (multiplicand + 1)
-
-        return multiplicand, floor(rem % 1 * 256), floor(rem)
-
-    def push_fan_mirage_state(self):
-        state = self.fan.mirage_state
-        if isinstance(state, MirageStateOn):
-            (rm, ri, rd) = self._mirage_freq_bytes(state.red_freq)
-            (gm, gi, gd) = self._mirage_freq_bytes(state.green_freq)
-            (bm, bi, bd) = self._mirage_freq_bytes(state.blue_freq)
-
-            self._usb.send_bytes(
-                [0x51, 0x71, 0, 0, 1, 0, 0xFF, 0x4A, 2, rm, ri, rd, 3, gm, gi, gd, 4, bm, bi, bd])
-        else:
-            self._usb.send_bytes(
-                [0x51, 0x71, 0, 0, 1, 0, 0xFF, 0x4A, 2, 0, 0xFF, 0x4A, 3, 0, 0xFF, 0x4A, 4, 0, 0xFF, 0x4A])
-
     def request_firmware_version(self) -> str:
         response = self._usb.send_bytes([0x12, 0x20])
         version = bytes(filter(lambda b: b != 0, response[8:34])).decode().lower()
@@ -127,7 +104,6 @@ class WraithPrism(AbstractContextManager):
         self.fan.speed = self.logo.speed = self.ring.speed = Speed.Medium
         self.fan.brightness = self.logo.brightness = self.ring.brightness = Brightness.High
         self.fan.mirage_state = MirageState.Default
-        self.push_fan_mirage_state()
 
         for component in self._components:
             component.submit_values()

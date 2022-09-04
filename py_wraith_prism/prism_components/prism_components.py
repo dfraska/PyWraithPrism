@@ -1,6 +1,7 @@
 import itertools
 from abc import ABC, abstractmethod
-from typing import List, Sequence, Iterable
+from math import floor
+from typing import List, Sequence, Iterable, Tuple
 
 from colour import Color
 
@@ -8,7 +9,7 @@ from py_wraith_prism.channel_values import ChannelValues
 from py_wraith_prism.morse import morse_or_text_to_bytes, bytes_to_morse_or_text
 from py_wraith_prism.prism_components.enums import Speed, Brightness, ColorSupport, \
     RotationDirection
-from py_wraith_prism.prism_components.mirage_state import MirageState
+from py_wraith_prism.prism_components.mirage_state import MirageState, MirageStateOn
 from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, PrismRingMode
 from py_wraith_prism.usb.hid_device_manager import UsbInterface
 
@@ -121,6 +122,32 @@ class PrismFanComponent(BasicPrismComponent):
 
         # No hardware getter, so mirageState starts as off due to being unknown
         self.mirage_state: MirageState = MirageState.Off
+
+    @staticmethod
+    def _mirage_freq_bytes(value: int) -> Tuple[int, int, int]:
+        initial = 187498 / value
+
+        multiplicand = floor(initial / 256)
+        rem = initial / (multiplicand + 1)
+
+        return multiplicand, floor(rem % 1 * 256), floor(rem)
+
+    def submit_values(self):
+        self.submit_mirage_state()
+        super().submit_values()
+
+    def submit_mirage_state(self):
+        state = self.mirage_state
+        if isinstance(state, MirageStateOn):
+            (rm, ri, rd) = self._mirage_freq_bytes(state.red_freq)
+            (gm, gi, gd) = self._mirage_freq_bytes(state.green_freq)
+            (bm, bi, bd) = self._mirage_freq_bytes(state.blue_freq)
+
+            self._usb.send_bytes(
+                [0x51, 0x71, 0, 0, 1, 0, 0xFF, 0x4A, 2, rm, ri, rd, 3, gm, gi, gd, 4, bm, bi, bd])
+        else:
+            self._usb.send_bytes(
+                [0x51, 0x71, 0, 0, 1, 0, 0xFF, 0x4A, 2, 0, 0xFF, 0x4A, 3, 0, 0xFF, 0x4A, 4, 0, 0xFF, 0x4A])
 
 
 class PrismRingComponent(PrismComponent):
