@@ -11,8 +11,6 @@ if __name__ == '__main__':
         version = prism.request_firmware_version()
         print(f"Prism version: {version}")
 
-        print(f"morse text (before set): {prism.ring.morse_text}")
-
         prism.ring.mode = PrismRingMode.Morse
         prism.ring.morse_text = "abc"
         prism.ring.color = Color("red")
@@ -26,8 +24,6 @@ if __name__ == '__main__':
         prism.logo.speed = Speed.Slow
         prism.logo.color = Color("blue")
         prism.logo.brightness = Brightness.High
-
-        print(f"morse text (after set): {prism.ring.morse_text}")
 
         prism.submit_all_components()
         prism.save()
