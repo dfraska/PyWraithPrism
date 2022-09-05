@@ -20,7 +20,7 @@ included
 [script](https://github.com/dfraska/PyWraithPrism/blob/main/py_wraith_prism/add_udev_rule.py)
 as sudo
 
-```sudo python -m py_wraith_prism/add_udev_rule```
+```sudo python -m py_wraith_prism.add_udev_rule```
 
 # Usage
 See the examples under [tests](https://github.com/dfraska/PyWraithPrism/blob/main/tests/) for a basic usage example.
