@@ -8,14 +8,18 @@ some examples). These are either written for other platforms, or are not feature
 
 # Installation
 Install the package using pip
+
 ```python -m pip install git+https://github.com/dfraska/PyWraithPrism#egg=py_wraith_prism```
+
 or pipenv
+
 ```pipenv install git+https://github.com/dfraska/PyWraithPrism#egg=py_wraith_prism```
 
 On Linux, add a udev rule to allow user-mode access to the USB device. You can do this automatically by running the
 included
 [script](https://github.com/dfraska/PyWraithPrism/blob/main/py_wraith_prism/add_udev_rule.py)
 as sudo
+
 ```sudo python -m py_wraith_prism/add_udev_rule```
 
 # Usage
