@@ -1,8 +1,8 @@
 # About
-PyWraithPrism allows control of the AMD Wraith Prism CPU fan RGB LEDs from within Python.
+PyWraithPrism allows control of the AMD Wraith Prism CPU fan RGB LEDs from within Python from "any" platform.
 
 Other projects exist for controlling the Wraith Prism cooler (see the [Acknowledgements](#Acknowledgements) section 
-for some examples). Other options I found were either written for other platforms, or are not feature-complete enough for my uses.
+for some examples). These are either written for other platforms, or are not feature-complete enough for my uses.
 
 # Usage
 See the examples under [tests](https://github.com/dfraska/PyWraithPrism/blob/main/tests/) for a basic usage example.
