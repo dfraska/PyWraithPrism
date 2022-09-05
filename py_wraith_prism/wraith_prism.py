@@ -11,8 +11,6 @@ from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, \
     PrismRingMode
 from py_wraith_prism.usb.hid_device_manager import UsbInterface
 
-# Port of:
-# https://github.com/serebit/wraith-master/blob/master/core/src/linuxX64Main/kotlin/prism/WraithPrism.kt
 
 SECONDS_PER_MILLISECOND = 1 / 1000
 
