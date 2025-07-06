@@ -28,7 +28,7 @@ class HidDeviceManager:
                     if descriptor['interface_number'] in self.interface_numbers:
                         yield descriptor
 
-    def _create_interface(self) -> hid_device:
+    def _open_first_device(self) -> hid_device:
         descriptors = self._enumerate_devices()
         try:
             descriptor = next(descriptors)

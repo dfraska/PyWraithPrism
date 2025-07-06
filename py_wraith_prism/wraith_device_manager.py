@@ -12,4 +12,4 @@ class WraithDeviceManager(HidDeviceManager):
         super().__init__(_VENDOR_ID, _PRODUCT_ID, _IFACE_NUM)
 
     def create_device(self) -> WraithPrism:
-        return WraithPrism(super()._create_interface())
+        return WraithPrism(super()._open_first_device())
