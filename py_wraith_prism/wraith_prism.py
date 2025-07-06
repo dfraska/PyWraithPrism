@@ -9,15 +9,15 @@ from py_wraith_prism.prism_components.prism_components import PrismLogoComponent
     PrismRingComponent, PrismComponent
 from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, \
     PrismRingMode
-from py_wraith_prism.usb.hid_device_manager import UsbInterface
-
+from py_wraith_prism.usb.wraith_usb_interface import WraithUsbInterface
+from hid import device as hid_device
 
 SECONDS_PER_MILLISECOND = 1 / 1000
 
 
 class WraithPrism(AbstractContextManager):
-    def __init__(self, usb: UsbInterface):
-        self._usb = usb
+    def __init__(self, device: hid_device):
+        self._usb = WraithUsbInterface(device)
 
         # Power on
         self.power_on()
@@ -25,8 +25,8 @@ class WraithPrism(AbstractContextManager):
         self.apply()
 
         # Request channel data
-        data = usb.send_bytes([0x52, 0xA0, 1, 0, 0, 3])
-        self._components = Components(usb, data)
+        data = self._usb.send_bytes([0x52, 0xA0, 1, 0, 0, 3])
+        self._components = Components(self._usb, data)
 
     def submit_component(self, component: PrismComponent):
         component.submit_values()

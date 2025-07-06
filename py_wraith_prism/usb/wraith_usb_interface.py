@@ -7,8 +7,8 @@ from typing import List, Type, Iterable
 from hid import device as hid_device
 
 
-class UsbInterface(AbstractContextManager):
-    def __init__(self, device: hid_device, request_size: int):
+class WraithUsbInterface(AbstractContextManager):
+    def __init__(self, device: hid_device, request_size: int = 64):
         self._device: hid_device = device
         self._request_size = request_size
 

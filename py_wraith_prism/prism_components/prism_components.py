@@ -11,12 +11,12 @@ from py_wraith_prism.prism_components.enums import Speed, Brightness, ColorSuppo
     RotationDirection
 from py_wraith_prism.prism_components.mirage_state import MirageState, MirageStateOn
 from py_wraith_prism.prism_components.prism_mode import BasicPrismMode, PrismRingMode
-from py_wraith_prism.usb.hid_device_manager import UsbInterface
+from py_wraith_prism.usb.wraith_usb_interface import WraithUsbInterface
 
 
 class PrismComponent(ABC):
-    def __init__(self, usb: UsbInterface, mode: BasicPrismMode or PrismRingMode):
-        self._usb: UsbInterface = usb
+    def __init__(self, usb: WraithUsbInterface, mode: BasicPrismMode or PrismRingMode):
+        self._usb: WraithUsbInterface = usb
 
         self.mode: BasicPrismMode or PrismRingMode = mode
         self.color: Color = Color("black")
@@ -79,7 +79,7 @@ class PrismComponent(ABC):
 
 
 class BasicPrismComponent(PrismComponent, ABC):
-    def __init__(self, usb: UsbInterface, channel: int):
+    def __init__(self, usb: WraithUsbInterface, channel: int):
         super().__init__(usb, BasicPrismMode.Off)
         self._channel: int = channel
         self._reload_values()
@@ -112,12 +112,12 @@ class BasicPrismComponent(PrismComponent, ABC):
 
 
 class PrismLogoComponent(BasicPrismComponent):
-    def __init__(self, usb: UsbInterface, channel: int):
+    def __init__(self, usb: WraithUsbInterface, channel: int):
         super().__init__(usb, channel)
 
 
 class PrismFanComponent(BasicPrismComponent):
-    def __init__(self, usb: UsbInterface, channel: int):
+    def __init__(self, usb: WraithUsbInterface, channel: int):
         super().__init__(usb, channel)
 
         # No hardware getter, so mirageState starts as off due to being unknown
@@ -151,7 +151,7 @@ class PrismFanComponent(BasicPrismComponent):
 
 
 class PrismRingComponent(PrismComponent):
-    def __init__(self, usb: UsbInterface, channel: int):
+    def __init__(self, usb: WraithUsbInterface, channel: int):
         try:
             mode = next((mode for mode in PrismRingMode if mode.channel == channel))
         except StopIteration:
@@ -181,6 +181,7 @@ class PrismRingComponent(PrismComponent):
                 return self._morse_text.strip().upper() != self._saved_morse_text.strip().upper()
             else:
                 return False
+        return True
 
     def _reload_values(self):
         channel_values = self._fetch_channel_values()

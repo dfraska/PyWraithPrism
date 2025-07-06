@@ -2,11 +2,11 @@ from typing import Sequence, List
 
 from py_wraith_prism.prism_components.prism_components import PrismLogoComponent, \
     PrismComponent, PrismFanComponent, PrismRingComponent
-from py_wraith_prism.usb.hid_device_manager import UsbInterface
+from py_wraith_prism.usb.wraith_usb_interface import WraithUsbInterface
 
 
 class Components(Sequence[PrismComponent]):
-    def __init__(self, usb: UsbInterface, data: List[int]):
+    def __init__(self, usb: WraithUsbInterface, data: List[int]):
         self._logo = PrismLogoComponent(usb, data[8])
         self._fan = PrismFanComponent(usb, data[9])
         self._ring = PrismRingComponent(usb, data[10])

@@ -3,12 +3,10 @@ from typing import Any, Generator, Iterable
 import hid
 from hid import device as hid_device
 
-from py_wraith_prism.usb.usb_interface import UsbInterface
-
 
 class HidDeviceManager:
     def __init__(self, vendor_id: int | Iterable[int], product_id: int | Iterable[int],
-                 interface_number: int | Iterable[int], request_size: int = 64):
+                 interface_number: int | Iterable[int]):
         if not hasattr(vendor_id, '__iter__'):
             vendor_id = (vendor_id,)
         self._vendor_ids = vendor_id
@@ -21,7 +19,6 @@ class HidDeviceManager:
             interface_number = (interface_number,)
         self.interface_numbers = interface_number
 
-        self._request_size = request_size
         self._device = hid_device()
 
     def _enumerate_devices(self) -> Generator[Any, Any, None]:
@@ -31,7 +28,7 @@ class HidDeviceManager:
                     if descriptor['interface_number'] in self.interface_numbers:
                         yield descriptor
 
-    def _create_interface(self) -> UsbInterface:
+    def _create_interface(self) -> hid_device:
         descriptors = self._enumerate_devices()
         try:
             descriptor = next(descriptors)
@@ -41,6 +38,6 @@ class HidDeviceManager:
 
         try:
             self._device.open_path(descriptor["path"])
-            return UsbInterface(self._device, self._request_size)
+            return self._device
         except OSError as e:
             raise IOError("Failed to open the device.") from e
