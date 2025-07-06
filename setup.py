@@ -17,7 +17,7 @@ EXTRA_PACKAGES = {}
 
 setup(
     name='py_wraith_prism',
-    version='0.9',
+    version='0.9.1',
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     install_requires=RUNTIME_PACKAGES,
     setup_requires=RUNTIME_PACKAGES + SETUP_PACKAGES,
