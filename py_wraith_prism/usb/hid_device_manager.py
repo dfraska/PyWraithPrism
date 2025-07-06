@@ -21,12 +21,22 @@ class HidDeviceManager:
 
         self._device = hid_device()
 
+    def list_devices(self):
+        return list(self._enumerate_devices())
+
     def _enumerate_devices(self) -> Generator[Any, Any, None]:
         for vendor_id in self._vendor_ids:
             for product_id in self._product_ids:
                 for descriptor in hid.enumerate(vendor_id=vendor_id, product_id=product_id):
                     if descriptor['interface_number'] in self.interface_numbers:
                         yield descriptor
+
+    def _open_device(self, descriptor) -> hid_device:
+        try:
+            self._device.open_path(descriptor["path"])
+            return self._device
+        except OSError as e:
+            raise IOError("Failed to open the device.") from e
 
     def _open_first_device(self) -> hid_device:
         descriptors = self._enumerate_devices()
@@ -36,8 +46,4 @@ class HidDeviceManager:
             # No descriptors were found
             raise IOError("Failed to find a matching device.")
 
-        try:
-            self._device.open_path(descriptor["path"])
-            return self._device
-        except OSError as e:
-            raise IOError("Failed to open the device.") from e
+        return self._open_device(descriptor)
