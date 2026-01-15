@@ -57,7 +57,7 @@ class _BasicPrismMode(NamedTuple):
 class BasicPrismMode(_BasicPrismMode, _PrismMode, Enum):
     Off = _BasicPrismMode(0, brightnesses={})
     Static = _BasicPrismMode(1, color_support=ColorSupport.Specific)
-    Cycle = _BasicPrismMode(2, map_speed(0x96, 0x8C, 0x80, 0x6E, 0x68), map_brightness(0x10, 0x40, 0x7F)),
+    Cycle = _BasicPrismMode(2, map_speed(0x96, 0x8C, 0x80, 0x6E, 0x68), map_brightness(0x10, 0x40, 0x7F))
     Breathe = _BasicPrismMode(3, map_speed(0x3C, 0x37, 0x31, 0x2C, 0x26), color_support=ColorSupport.All)
 
     @classmethod
