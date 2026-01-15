@@ -1,5 +1,6 @@
+import logging
 from enum import Enum
-from typing import NamedTuple, Mapping
+from typing import NamedTuple, Mapping, Self
 
 from py_wraith_prism.prism_components.enums import ColorSupport, Brightness, Speed
 
@@ -60,8 +61,12 @@ class BasicPrismMode(_BasicPrismMode, _PrismMode, Enum):
     Breathe = _BasicPrismMode(3, map_speed(0x3C, 0x37, 0x31, 0x2C, 0x26), color_support=ColorSupport.All)
 
     @classmethod
-    def from_mode(cls, mode: int):
-        return next((m for m in cls if m.mode == mode))
+    def from_mode(cls, mode: int) -> Self:
+        try:
+            return next((m for m in cls if m.mode == mode))
+        except StopIteration:
+            logging.getLogger(cls.__name__).error(f"Failed to find basic prism mode {mode}")
+            return BasicPrismMode.Off
 
 
 class _PrismRingMode(NamedTuple):

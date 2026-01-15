@@ -15,10 +15,10 @@ from py_wraith_prism.usb.wraith_usb_interface import WraithUsbInterface
 
 
 class PrismComponent(ABC):
-    def __init__(self, usb: WraithUsbInterface, mode: BasicPrismMode or PrismRingMode):
+    def __init__(self, usb: WraithUsbInterface, mode: BasicPrismMode | PrismRingMode):
         self._usb: WraithUsbInterface = usb
 
-        self.mode: BasicPrismMode or PrismRingMode = mode
+        self.mode: BasicPrismMode | PrismRingMode = mode
         self.color: Color = Color("black")
         self.speed: Speed = Speed.Medium
         self.brightness: Brightness = Brightness.Medium
@@ -162,7 +162,7 @@ class PrismRingComponent(PrismComponent):
 
         self._morse_text: str = ""
         self._saved_morse_text: str = ""
-        self._cached_morse_bytes: Sequence[int] or None = None
+        self._cached_morse_bytes: Sequence[int] | None = None
 
         self._reload_values()
 
